@@ -15,16 +15,21 @@ export const getUserNavigations = (session: any) => {
   const subscriptions: any = session?.user?.subscriptions || [];
   const user_type: string = session?.user?.user_type || '';
 
-
   let navigations: any = [];
-  
+
   // subscriptions are digital_signage, online_marketing, workplace and queueing_system
 
-  if (subscriptions.includes('Digital Signage') && user_type.includes('Promoter')) {
+  if (
+    subscriptions.includes('Digital Signage') &&
+    user_type.includes('Promoter')
+  ) {
     navigations = [...navigations, ...adminDigitalSignageNav];
   }
-  
-  if (subscriptions.includes('Digital Signage') && user_type.includes('Advertiser')) {
+
+  if (
+    subscriptions.includes('Digital Signage') &&
+    user_type.includes('Advertiser')
+  ) {
     navigations = [...navigations, ...advertisersNav];
   }
 
@@ -41,13 +46,12 @@ export const getUserNavigations = (session: any) => {
   }
 
   if (roles.includes('Admin')) {
-    if(!user_type.includes('Advertiser')){
+    if (!user_type.includes('Advertiser')) {
       navigations = [...navigations, ...adminNav];
-    } 
-    else {
-      const updatedAdminNav = { 
-        ...adminNav[0], 
-        items: adminNav[0].items.slice(0, -3) 
+    } else {
+      const updatedAdminNav = {
+        ...adminNav[0],
+        items: adminNav[0].items.slice(0, -3)
       };
       navigations = [...navigations, updatedAdminNav];
     }
@@ -174,39 +178,39 @@ export const nagGroups: NavGroup[] = [
     items: [
       {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: '/digital-signage/dashboard',
         icon: 'dashboard',
         label: 'Dashboard',
         subNav: null
       },
       {
         title: 'TV Screen',
-        href: '/tv-screen',
+        href: '/digital-signage/tv-screen',
         icon: 'tv',
         label: 'TV Screen',
         subNav: null
       },
       {
         title: 'Media',
-        href: '/media',
+        href: '/digital-signage/media',
         icon: 'folder',
         label: 'Media',
         subNav: [
           {
             title: 'All Media',
-            href: '/media/all',
+            href: '/digital-signage/media/all',
             icon: 'folder',
             label: 'All Media'
           },
           {
             title: 'Images',
-            href: '/media/images',
+            href: '/digital-signage/media/images',
             icon: 'media',
             label: 'Images'
           },
           {
             title: 'Videos',
-            href: '/media/videos',
+            href: '/digital-signage/media/videos',
             icon: 'video',
             label: 'Videos'
           }
@@ -214,35 +218,35 @@ export const nagGroups: NavGroup[] = [
       },
       {
         title: 'Links',
-        href: '/links',
+        href: '/digital-signage/links',
         icon: 'link',
         label: 'Links',
         subNav: null
       },
       {
         title: 'Playlist',
-        href: '/playlist',
+        href: '/digital-signage/playlist',
         icon: 'imagePlay',
         label: 'Playlist',
         subNav: null
       },
       {
         title: 'Scheduled slots',
-        href: '/scheduled-slots',
+        href: '/digital-signage/scheduled-slots',
         icon: 'calendarClock',
         label: 'Scheduled slots',
         subNav: null
       },
       {
         title: 'Location',
-        href: '/location',
+        href: '/digital-signage/location',
         icon: 'mapPin',
         label: 'Location',
         subNav: null
       },
       {
         title: 'Reports',
-        href: '/reports',
+        href: '/digital-signage/reports',
         icon: 'note',
         label: 'Reports',
         subNav: null
@@ -275,7 +279,7 @@ export const nagGroups: NavGroup[] = [
             href: '/admin/billings',
             icon: 'billing',
             label: 'billings'
-          },
+          }
         ]
       },
       {
@@ -284,7 +288,7 @@ export const nagGroups: NavGroup[] = [
         icon: 'users',
         label: 'users',
         subNav: null
-      },
+      }
       // {
       //   title: 'Analytics',
       //   href: '/admin/analytics',
