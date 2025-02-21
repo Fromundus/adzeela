@@ -24,7 +24,9 @@ function QrGeneratorComponent() {
   return (
     <div className="h-full w-full bg-purple-600">
       <div className="mx-auto flex h-screen w-fit flex-col items-center justify-center rounded-lg p-8">
-        {qrCodeData && <QRCodeSVG value={qrCodeData} size={512} level="H" />}
+        {qrCodeData && (
+          <QRCodeSVG value={qrCodeData} size={512} level="H" marginSize={4} />
+        )}
         <p className="mt-4 font-mono text-lg text-white">Code: {qrCodeData}</p>
       </div>
     </div>

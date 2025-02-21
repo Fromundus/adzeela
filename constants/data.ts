@@ -178,39 +178,39 @@ export const nagGroups: NavGroup[] = [
     items: [
       {
         title: 'Dashboard',
-        href: '/digital-signage/dashboard',
+        href: '/dashboard',
         icon: 'dashboard',
         label: 'Dashboard',
         subNav: null
       },
       {
         title: 'TV Screen',
-        href: '/digital-signage/tv-screen',
+        href: '/tv-screen',
         icon: 'tv',
         label: 'TV Screen',
         subNav: null
       },
       {
         title: 'Media',
-        href: '/digital-signage/media',
+        href: '/media',
         icon: 'folder',
         label: 'Media',
         subNav: [
           {
             title: 'All Media',
-            href: '/digital-signage/media/all',
+            href: '/media/all',
             icon: 'folder',
             label: 'All Media'
           },
           {
             title: 'Images',
-            href: '/digital-signage/media/images',
+            href: '/media/images',
             icon: 'media',
             label: 'Images'
           },
           {
             title: 'Videos',
-            href: '/digital-signage/media/videos',
+            href: '/media/videos',
             icon: 'video',
             label: 'Videos'
           }
@@ -218,35 +218,35 @@ export const nagGroups: NavGroup[] = [
       },
       {
         title: 'Links',
-        href: '/digital-signage/links',
+        href: '/links',
         icon: 'link',
         label: 'Links',
         subNav: null
       },
       {
         title: 'Playlist',
-        href: '/digital-signage/playlist',
+        href: '/playlist',
         icon: 'imagePlay',
         label: 'Playlist',
         subNav: null
       },
       {
         title: 'Scheduled slots',
-        href: '/digital-signage/scheduled-slots',
+        href: '/scheduled-slots',
         icon: 'calendarClock',
         label: 'Scheduled slots',
         subNav: null
       },
       {
         title: 'Location',
-        href: '/digital-signage/location',
+        href: '/location',
         icon: 'mapPin',
         label: 'Location',
         subNav: null
       },
       {
         title: 'Reports',
-        href: '/digital-signage/reports',
+        href: '/reports',
         icon: 'note',
         label: 'Reports',
         subNav: null

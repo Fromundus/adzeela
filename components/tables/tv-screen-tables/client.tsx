@@ -115,7 +115,6 @@ export const columns: ColumnDef<TvScreen>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => <div className="lowercase">Offline</div>
-
   },
   {
     accessorKey: 'name',
@@ -150,8 +149,8 @@ export const columns: ColumnDef<TvScreen>[] = [
     id: 'actions',
     enableHiding: false,
     header: 'Actions',
-    cell: ({ row, table }) => <ActionsCell row={row} table={table} />,
-  },
+    cell: ({ row, table }) => <ActionsCell row={row} table={table} />
+  }
 ];
 
 // Separate ActionCell for reusability and hook safety
@@ -162,27 +161,25 @@ function ActionsCell({ row, table }: { row: any; table: any }) {
   const { toast } = useToast();
   const router = useRouter();
 
-  const registerTvScreenAttempt = async (id:number, url:string) => {
-    console.log("id",id)
-    console.log("url",url)
+  const registerTvScreenAttempt = async (id: number, url: string) => {
+    console.log('id', id);
+    console.log('url', url);
     // this will only happen if the user force to delete the registered device id as uuid, if this happens it will regenerate it again this use it
     let deviceId = localStorage.getItem('device_id');
     if (!deviceId) {
-     deviceId = crypto.randomUUID();
-    localStorage.setItem('device_id', deviceId);
+      deviceId = crypto.randomUUID();
+      localStorage.setItem('device_id', deviceId);
     }
     console.log('Device ID:', deviceId);
     try {
-      await registerTvScreen(id!,deviceId);
+      await registerTvScreen(id!, deviceId);
       window.open(url, '_blank', 'noopener,noreferrer');
     } catch (error) {
       window.open(url, '_blank', 'noopener,noreferrer');
     } finally {
-      setViewDialogOpen(false)
+      setViewDialogOpen(false);
     }
-    
-    
-  }
+  };
   const handleDelete = async () => {
     try {
       await deleteTvScreen(row.original.id!);
@@ -213,9 +210,17 @@ function ActionsCell({ row, table }: { row: any; table: any }) {
     // setViewDialogOpen(true);
     // console.log(row.original.id)
     // router.push(`/digital-signage/tv-screen/${row.original.id}`);
-                {/* () => registerTvScreenAttempt(row.original.id, `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`)} */}
-      console.log(row.original.id, `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`)  
-      registerTvScreenAttempt(row.original.id, `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`)
+    {
+      /* () => registerTvScreenAttempt(row.original.id, `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`)} */
+    }
+    console.log(
+      row.original.id,
+      `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`
+    );
+    registerTvScreenAttempt(
+      row.original.id,
+      `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`
+    );
   };
 
   const handleView = () => {
@@ -240,15 +245,24 @@ function ActionsCell({ row, table }: { row: any; table: any }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <Link
-           
             href={`/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`}
             target="_blank"
           >
-            <DropdownMenuItem>Preview</DropdownMenuItem> 
-            </Link> 
+            <DropdownMenuItem>Preview</DropdownMenuItem>
+          </Link>
 
-            <DropdownMenuItem  onClick={() =>setViewDialogOpen(true)}>Push to TV Screen</DropdownMenuItem>
-            {/* () => registerTvScreenAttempt(row.original.id, `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`)} */}
+          {!row.original.device_id && (
+            // <DropdownMenuItem onClick={() => setViewDialogOpen(true)}>
+            //   Push to TV Screen {row.original.device_id }
+            // </DropdownMenuItem>
+
+            <Link
+              href={`/digital-signage/tv-screen/${row.original.id}/register`}
+            >
+              <DropdownMenuItem>Push to TV Screen</DropdownMenuItem>
+            </Link>
+          )}
+          {/* () => registerTvScreenAttempt(row.original.id, `/play/${row.original.playlist?.id}?orientation=${row.original.size}&tv=${row.original.id}`)} */}
           <DropdownMenuItem onClick={handleEdit}>Edit</DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
             Delete
@@ -261,15 +275,14 @@ function ActionsCell({ row, table }: { row: any; table: any }) {
         onClose={() => setIsDialogOpen(false)}
       />
 
-<ConfirmDialog
+      <ConfirmDialog
         isOpen={isViewDialogOpen}
         onConfirm={handlePushToTvScreen}
         onClose={() => setViewDialogOpen(false)}
-        title='Push to TV Screen'
-        message='If you push this TV Screen you will not be able to push to other browser'
-        button='Push'
+        title="Push to TV Screen"
+        message="If you push this TV Screen you will not be able to push to other browser"
+        button="Push"
       />
-
 
       {/* <ConfirmDialogWithParams
         isOpen={isViewDialogOpen}
@@ -334,9 +347,9 @@ export function TvScreenTable({ data: initialData }: { data: TvScreen[] }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}

@@ -10,11 +10,12 @@ import { Playlist } from '@/types/Playlist';
 import TabsComponent from '@/components/TabComponent';
 import { useParams } from 'next/navigation';
 import { Card } from '@/components/ui/card';
-import { TvScreen } from '@/types/TvScreen';
+import { TvScreen, TvScreenAds } from '@/types/TvScreen';
 
 const EditTvScreenPage = () => {
   const { id } = useParams();
   const [playlistData, setPlaylistData] = useState<Playlist[]>([]);
+  const [tvScreen, setTvScreen] = useState<TvScreen>();
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(
     null
   );
@@ -45,10 +46,11 @@ const EditTvScreenPage = () => {
     try {
       const response = await fetchTvScreenById(tvScreenId);
 
+      setTvScreen(response.data);
+
       console.log('playlist', response.data.playlist);
 
       const playlist = response.data.playlist;
-
       if (playlist) {
         setSelectedPlaylist(playlist);
       } else {
@@ -69,10 +71,6 @@ const EditTvScreenPage = () => {
         console.error('Error fetching playlists:', error);
       });
   };
-
-  useEffect(() => {
-    fetchPlaylistData();
-  }, []);
 
   const formatDate = () => {
     if (selectedPlaylist?.updated_at) {
@@ -133,7 +131,7 @@ const EditTvScreenPage = () => {
                    items-center justify-center`}
               style={{ overflow: 'hidden' }}
             >
-              {selectedPlaylist ? (
+              {iframeUrl ? (
                 <iframe
                   src={iframeUrl || 'about:blank'}
                   frameBorder="0"
@@ -163,11 +161,6 @@ const EditTvScreenPage = () => {
                       Active now
                     </span>
                   </div>
-                  <div className="mt-3 flex justify-center">
-                    <Button className="rounded-sm">
-                      Save & push to this screen
-                    </Button>
-                  </div>
                 </>
               ) : null}
             </div>
@@ -183,13 +176,13 @@ const EditTvScreenPage = () => {
               setRotate={setRotate}
               mode="edit"
               tvScreenId={tvScreenId!}
+              deviceId={tvScreen?.device_id!}
               handleIframe={handleIframe}
             />
           </Card>
         </div>
       </div>
-
-      <TabsComponent />
+      <TabsComponent tvScreenId={tvScreenId!} />
     </>
   );
 };

@@ -19,9 +19,8 @@ const AddTvScreenPage = () => {
   const [iframeUrl, setIframeUrl] = useState<string>('');
 
   const handleIframe = (e: any) => {
-    
-    const url = e+"&allow=true"
-    console.log("setIframeUrl",url)
+    const url = e + '&allow=true';
+    console.log('setIframeUrl', url);
     setIframeUrl(url);
   };
 
@@ -115,7 +114,7 @@ const AddTvScreenPage = () => {
         </div>
       </div>
 
-      <TabsComponent />
+      {/* <TabsComponent /> */}
     </>
   );
 };
